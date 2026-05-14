@@ -234,6 +234,75 @@
             padding-left: 22px;
         }
 
+        .chat-window {
+            min-height: 220px;
+            background: rgba(15, 23, 42, 0.82);
+            border: 1px solid rgba(56, 189, 248, 0.15);
+            border-radius: 18px;
+            padding: 18px;
+            overflow-y: auto;
+            max-height: 340px;
+        }
+
+        #chat {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            width: 320px;
+            max-height: 520px;
+            z-index: 999;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        #chat h2 {
+            margin-top: 0;
+            font-size: 1.2rem;
+        }
+
+        #chat p {
+            font-size: 0.9rem;
+            margin: 10px 0;
+        }
+
+        .chat-message {
+            margin-bottom: 14px;
+            padding: 12px 14px;
+            border-radius: 14px;
+            line-height: 1.6;
+            max-width: 85%;
+            word-wrap: break-word;
+        }
+
+        .chat-message.user {
+            background: rgba(56, 189, 248, 0.15);
+            align-self: flex-end;
+        }
+
+        .chat-message.bot {
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .chat-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .chat-actions input {
+            flex: 1;
+            min-width: 0;
+            padding: 14px 16px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text);
+        }
+
+        .chat-actions input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
         .footer {
             padding: 22px 0 0;
             color: var(--muted);
@@ -282,6 +351,7 @@
                 <a href="#experience">Experience</a>
                 <a href="#education">Education</a>
                 <a href="#certifications">Certifications</a>
+                <a href="#chat">Chat</a>
                 <a href="#contact">Contact</a>
             </nav>
         </header>
@@ -401,10 +471,72 @@
             </section>
         </div>
 
+        <section class="card" id="chat">
+                <h2>AI Chat Assistant</h2>
+                <p>Ask a quick question about my skills, experience, or network engineering topics, and this chat assistant will give you an instant answer.</p>
+                <div class="chat-window" id="chatWindow"></div>
+                <div class="chat-actions">
+                    <input id="chatInput" type="text" placeholder="Ask about Azure, Cisco, security, or my experience" />
+                    <button id="chatSend" class="button">Send</button>
+                </div>
+            </section>
+        </div>
+
         <footer class="footer" id="contact">
             <p>Ready to connect on secure network design, cloud engineering, or infrastructure automation?</p>
-            <p>Email <a href="mailto:mohalbaker@gmail.com">mohalbaker@gmail.com</a> or call <a href="tel:+15184705134">518-470-5134</a>.</p>
+            <p>Email <a href="mailto:moh.albaker@gmail.com">moh.albaker@gmail.com</a> or call <a href="tel:+15184705134">518-470-5134</a>.</p>
         </footer>
     </div>
+
+    <script>
+        const chatWindow = document.getElementById('chatWindow');
+        const chatInput = document.getElementById('chatInput');
+        const chatSend = document.getElementById('chatSend');
+
+        function addMessage(text, sender) {
+            const msg = document.createElement('div');
+            msg.className = `chat-message ${sender}`;
+            msg.textContent = text;
+            chatWindow.appendChild(msg);
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+        }
+
+        function getBotResponse(question) {
+            const text = question.toLowerCase();
+            if (!text.trim()) return 'Please ask a question.';
+            if (text.includes('azure') || text.includes('cloud')) {
+                return 'I work with Azure VNets, hybrid connectivity, and cloud network design for enterprise reliability.';
+            }
+            if (text.includes('cisco') || text.includes('juniper') || text.includes('firewall') || text.includes('palo alto')) {
+                return 'I support Cisco switches, routers, ACI, Juniper SRX, and Palo Alto firewalls in secure production environments.';
+            }
+            if (text.includes('experience') || text.includes('work')) {
+                return 'I have 10+ years in healthcare, government, and financial sectors supporting enterprise networking.';
+            }
+            if (text.includes('security') || text.includes('compliance')) {
+                return 'I focus on network security best practices, NAC, firewall policy, and secure infrastructure operations.';
+            }
+            if (text.includes('resume') || text.includes('profile')) {
+                return 'I’m available for roles that need strong network architecture, hybrid cloud, and resilient data center engineering.';
+            }
+            return 'That is a great question. I can help with network, cloud, and security topics or you can contact me directly via email.';
+        }
+
+        function handleSend() {
+            const text = chatInput.value.trim();
+            if (!text) return;
+            addMessage(text, 'user');
+            chatInput.value = '';
+            const response = getBotResponse(text);
+            setTimeout(() => addMessage(response, 'bot'), 250);
+        }
+
+        chatSend.addEventListener('click', handleSend);
+        chatInput.addEventListener('keydown', event => {
+            if (event.key === 'Enter') handleSend();
+        });
+
+        addMessage('Hello! Ask me about my skills, projects, or network experience.', 'bot');
+    </script>
 </body>
 </html>
