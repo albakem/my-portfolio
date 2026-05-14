@@ -1,182 +1,420 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Mohammed Albaker Portfolio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohammed Albaker | Portfolio</title>
+    <meta name="description" content="Mohammed Albaker | Senior Network Engineer with expertise in secure network architecture, Azure, Cisco, Juniper, and enterprise infrastructure.">
 
     <style>
+        :root {
+            color-scheme: dark;
+            --bg: #0b1221;
+            --surface: #111827;
+            --surface-alt: #17223d;
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+            --accent: #38bdf8;
+            --accent-strong: #22c55e;
+            --border: rgba(56, 189, 248, 0.18);
+            --radius: 22px;
+            --shadow: 0 25px 50px rgba(0, 0, 0, 0.18);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
         body {
-            background-color: #0f172a;
-            color: white;
-            font-family: Arial, sans-serif;
             margin: 0;
-        }
-
-        .container {
-            width: 85%;
-            max-width: 1000px;
-            margin: auto;
-            padding: 40px;
-        }
-
-        .top-section {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        h1 {
-            color: cyan;
-            font-size: 48px;
-            margin-bottom: 10px;
-        }
-
-        h2 {
-            color: #38bdf8;
-            border-bottom: 2px solid #38bdf8;
-            padding-bottom: 10px;
-            margin-top: 20px;
-        }
-
-        h3 {
-            color: cyan;
-            margin-top: 30px;
-        }
-
-        p, li {
-            font-size: 17px;
-            line-height: 1.7;
-        }
-
-        .card {
-            background-color: #1e293b;
-            padding: 25px;
-            border-radius: 15px;
-            margin-bottom: 25px;
+            min-height: 100vh;
+            font-family: Inter, Arial, sans-serif;
+            background: radial-gradient(circle at top, rgba(56, 189, 248, 0.12), transparent 25%),
+                        linear-gradient(180deg, #08101f 0%, #0f172a 55%, #02060f 100%);
+            color: var(--text);
         }
 
         a {
-            color: cyan;
+            color: var(--accent);
             text-decoration: none;
         }
 
-        ul {
+        a:hover {
+            color: var(--accent-strong);
+        }
+
+        .page {
+            width: min(1100px, 92%);
+            margin: 0 auto;
+            padding: 36px 0 60px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 32px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .logo {
+            display: grid;
+            gap: 8px;
+        }
+
+        .logo h1 {
+            margin: 0;
+            font-size: clamp(2rem, 3vw, 3rem);
+            letter-spacing: -0.04em;
+            color: var(--accent);
+        }
+
+        .logo p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            font-size: 0.95rem;
+            color: var(--muted);
+        }
+
+        nav a {
+            color: var(--muted);
+            transition: color 180ms ease;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        .hero {
+            display: grid;
+            gap: 24px;
+            margin-bottom: 36px;
+        }
+
+        .hero-card {
+            background: rgba(15, 23, 42, 0.92);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            border-radius: var(--radius);
+            padding: 32px;
+        }
+
+        .hero-card h2 {
+            margin-top: 0;
+            color: var(--accent);
+            font-size: clamp(1.7rem, 2.5vw, 2.4rem);
+        }
+
+        .hero-card p {
+            margin: 16px 0 0;
+            max-width: 820px;
+            line-height: 1.8;
+            color: var(--muted);
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 22px;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 20px;
+            border-radius: 999px;
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            background: rgba(56, 189, 248, 0.08);
+            color: var(--accent);
+            font-weight: 600;
+            transition: transform 180ms ease, background 180ms ease;
+        }
+
+        .button:hover {
+            transform: translateY(-1px);
+            background: rgba(56, 189, 248, 0.16);
+        }
+
+        .section-grid {
+            display: grid;
+            gap: 24px;
+        }
+
+        .card {
+            background: rgba(15, 23, 42, 0.94);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            border-radius: var(--radius);
+            padding: 28px;
+        }
+
+        .card h2 {
+            margin-top: 0;
+            margin-bottom: 18px;
+            color: var(--accent);
+            font-size: 1.5rem;
+        }
+
+        .card h3 {
+            margin: 0 0 10px;
+            color: #a5f3fc;
+            font-size: 1.1rem;
+        }
+
+        .card p,
+        .card li {
+            font-size: 1rem;
+            line-height: 1.75;
+            color: var(--text);
+        }
+
+        .card ul {
+            margin: 0;
             padding-left: 22px;
+            list-style: disc;
+        }
+
+        .skills-list {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px 22px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .skills-list li {
+            position: relative;
+            padding-left: 18px;
+        }
+
+        .skills-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        .timeline {
+            display: grid;
+            gap: 24px;
+        }
+
+        .job {
+            padding: 18px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .job:first-child {
+            border-top: none;
+        }
+
+        .job-meta {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 10px;
+            color: var(--muted);
+            font-size: 0.98rem;
+        }
+
+        .highlight-list {
+            margin: 0;
+            padding-left: 22px;
+        }
+
+        .footer {
+            padding: 22px 0 0;
+            color: var(--muted);
+            font-size: 0.95rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            text-align: center;
+        }
+
+        @media (max-width: 800px) {
+            .skills-list {
+                grid-template-columns: 1fr;
+            }
+
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 580px) {
+            .page {
+                width: 95%;
+            }
+
+            .hero-card {
+                padding: 24px;
+            }
+
+            .button {
+                width: 100%;
+                justify-content: center;
+            }
         }
     </style>
 </head>
-
 <body>
-    <div class="container">
+    <div class="page">
+        <header>
+            <div class="logo">
+                <h1>Mohammed Albaker</h1>
+                <p>Senior Network Engineer • Secure Infrastructure • Azure & Cisco</p>
+            </div>
+            <nav>
+                <a href="#about">About</a>
+                <a href="#skills">Skills</a>
+                <a href="#experience">Experience</a>
+                <a href="#education">Education</a>
+                <a href="#certifications">Certifications</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </header>
 
-        <div class="top-section">
-            <h1>Mohammed Albaker</h1>
-            <p>Tampa, FL • 518-470-5134 • mohalbaker@gmail.com</p>
-            <p>
-                <a href="https://www.linkedin.com/in/mohammed-albaker" target="_blank">
-                    LinkedIn Profile
-                </a>
-            </p>
+        <section class="hero">
+            <article class="hero-card" id="about">
+                <h2>Strong network architecture, cloud integration, and security leadership for enterprise teams.</h2>
+                <p>Experienced in healthcare, government, and financial networks. I build resilient Cisco, Juniper, Palo Alto and Azure environments, automate repeatable workflows, and deliver infrastructure projects that improve performance, security, and uptime.</p>
+                <div class="hero-actions">
+                    <a class="button" href="mailto:mohalbaker@gmail.com">Email Mohammed</a>
+                    <a class="button" href="https://www.linkedin.com/in/mohammed-albaker" target="_blank">LinkedIn Profile</a>
+                </div>
+            </article>
+
+            <article class="card">
+                <h2>Contact</h2>
+                <p><strong>Location:</strong> Tampa, FL</p>
+                <p><strong>Phone:</strong> <a href="tel:+15184705134">518-470-5134</a></p>
+                <p><strong>Email:</strong> <a href="mailto:mohalbaker@gmail.com">mohalbaker@gmail.com</a></p>
+                <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/mohammed-albaker" target="_blank">linkedin.com/in/mohammed-albaker</a></p>
+            </article>
+        </section>
+
+        <div class="section-grid">
+            <section class="card" id="skills">
+                <h2>Core Skills</h2>
+                <ul class="skills-list">
+                    <li>Cisco & Juniper Networking</li>
+                    <li>Palo Alto Firewalls</li>
+                    <li>Cisco ACI / Data Center Automation</li>
+                    <li>Azure & AWS Networking</li>
+                    <li>TCP/IP, OSI, BGP, OSPF</li>
+                    <li>Splunk, SolarWinds, PRTG, LogicMonitor</li>
+                    <li>Mist Wireless</li>
+                    <li>VMware Horizon</li>
+                    <li>VeloCloud SD-WAN</li>
+                    <li>DNS/DHCP, Infoblox</li>
+                    <li>Python & PowerShell Automation</li>
+                    <li>Network Security Best Practices</li>
+                </ul>
+            </section>
+
+            <section class="card" id="experience">
+                <h2>Professional Experience</h2>
+                <div class="timeline">
+                    <div class="job">
+                        <h3>Senior Network Engineer</h3>
+                        <div class="job-meta">
+                            <span>Tampa General Hospital – Tampa, FL</span>
+                            <span>July 2024 – Present</span>
+                        </div>
+                        <ul class="highlight-list">
+                            <li>Manage secure enterprise healthcare networking, including Cisco switching, routing, and firewall controls.</li>
+                            <li>Lead Azure VNet design and hybrid cloud connectivity for resilient hospital services.</li>
+                            <li>Operate Cisco ACI and Netscaler for efficient data center automation and load balancing.</li>
+                        </ul>
+                    </div>
+
+                    <div class="job">
+                        <h3>Network Engineer</h3>
+                        <div class="job-meta">
+                            <span>Empire State Development – Albany, NY</span>
+                            <span>May 2023 – July 2024</span>
+                        </div>
+                        <ul class="highlight-list">
+                            <li>Upgraded Juniper switches and SRX firewalls to improve reliability and reduce outages.</li>
+                            <li>Enhanced Azure cloud performance, Palo Alto firewall security, and Mist wireless coverage.</li>
+                            <li>Led Infoblox DNS/DHCP migration and contributed to strategic data center redesign.</li>
+                        </ul>
+                    </div>
+
+                    <div class="job">
+                        <h3>Network Security Engineer</h3>
+                        <div class="job-meta">
+                            <span>Broadview Federal Credit Union / SEFCU – Albany, NY</span>
+                            <span>Aug 2022 – May 2023</span>
+                        </div>
+                        <ul class="highlight-list">
+                            <li>Managed Palo Alto firewall estates and AWS connectivity within a regulated financial environment.</li>
+                            <li>Implemented Portnox NAC and strengthened network security compliance.</li>
+                            <li>Created automation scripts for routing stability and performance tuning with SolarWinds.</li>
+                        </ul>
+                    </div>
+
+                    <div class="job">
+                        <h3>Network Engineer</h3>
+                        <div class="job-meta">
+                            <span>SEFCU – Albany, NY</span>
+                            <span>Jan 2022 – Aug 2022</span>
+                        </div>
+                        <ul class="highlight-list">
+                            <li>Supported daily LAN/WAN operations, vendor coordination, and infrastructure optimization.</li>
+                        </ul>
+                    </div>
+
+                    <div class="job">
+                        <h3>Cisco Network Engineer / InfoSec Analyst III</h3>
+                        <div class="job-meta">
+                            <span>Albany Medical Center – Albany, NY</span>
+                            <span>Feb 2014 – Jan 2022</span>
+                        </div>
+                        <ul class="highlight-list">
+                            <li>Installed and configured enterprise Cisco switching, routing, firewall, and wireless solutions.</li>
+                            <li>Developed network security policies, managed service providers, and administered Cisco ISE.</li>
+                            <li>Led Pod 2 design and deployment for a major data center buildout.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card" id="education">
+                <h2>Education</h2>
+                <ul class="highlight-list">
+                    <li>B.S. Digital Forensics – University at Albany SUNY, Albany, NY</li>
+                    <li>A.A.S. CIS/Systems & Network Administration – Hudson Valley Community College, Troy, NY</li>
+                    <li>Associate Degree – Petroleum Industries Production & Field Measurement, Institute of Petroleum, Iraq</li>
+                </ul>
+            </section>
+
+            <section class="card" id="certifications">
+                <h2>Certifications</h2>
+                <ul class="highlight-list">
+                    <li>Microsoft Certified: Azure Administrator Associate</li>
+                    <li>Cisco CCNA, Enterprise Core</li>
+                    <li>CCNP</li>
+                </ul>
+            </section>
         </div>
 
-        <div class="card">
-            <h2>Professional Summary</h2>
-            <p>
-                Highly accomplished Senior Network Engineer with 10+ years of experience supporting
-                enterprise-level networks across healthcare, government, and financial sectors.
-                Specialized in secure network architecture, cloud networking, automation, and data center
-                technologies. Skilled in Cisco, Juniper, Palo Alto, ACI, Azure, and advanced monitoring
-                platforms. Recognized for strong analytical thinking, effective communication, and the
-                ability to drive complex network projects from design through implementation.
-            </p>
-        </div>
-
-        <div class="card">
-            <h2>Core Skills</h2>
-            <ul>
-                <li>Cisco & Juniper Networking</li>
-                <li>Palo Alto Firewalls</li>
-                <li>Cisco ACI</li>
-                <li>Azure & AWS Networking</li>
-                <li>TCP/IP, OSI, BGP, OSPF</li>
-                <li>Splunk, SolarWinds, PRTG, LogicMonitor</li>
-                <li>Mist Wireless</li>
-                <li>VMware Horizon</li>
-                <li>VeloCloud SD-WAN</li>
-                <li>DNS/DHCP, Infoblox</li>
-                <li>Python, PowerShell</li>
-                <li>Rubrik Cloud Backup</li>
-                <li>Network Security Best Practices</li>
-            </ul>
-        </div>
-
-        <div class="card">
-            <h2>Professional Experience</h2>
-
-            <h3>Senior Network Engineer</h3>
-            <p>Tampa General Hospital – Tampa, FL | July 2024 – Present</p>
-            <ul>
-                <li>Manage and enforce secure network policies across enterprise healthcare environment.</li>
-                <li>Configure and maintain Cisco switches, routers, and firewalls.</li>
-                <li>Support Azure VNets and hybrid cloud integrations.</li>
-                <li>Operate Cisco ACI for data center automation.</li>
-                <li>Manage Netscaler load balancing and DNS/DHCP services.</li>
-            </ul>
-
-            <h3>Network Engineer</h3>
-            <p>Empire State Development – Albany, NY | May 2023 – July 2024</p>
-            <ul>
-                <li>Upgraded Juniper switches and SRX firewalls for improved reliability.</li>
-                <li>Supported APC and Vertiv UPS systems within data centers.</li>
-                <li>Enhanced WAN/ISP circuit stability and Mist wireless environments.</li>
-                <li>Improved Azure cloud efficiency and strengthened Palo Alto firewall security.</li>
-                <li>Supported VMware Horizon VDI and VeloCloud SD-WAN.</li>
-                <li>Led Infoblox migration for DNS/DHCP modernization and contributed to datacenter redesign.</li>
-            </ul>
-
-            <h3>Network Security Engineer</h3>
-            <p>Broadview Federal Credit Union formerly SEFCU – Albany, NY | Aug 2022 – May 2023</p>
-            <ul>
-                <li>Managed Palo Alto firewalls, AWS connectivity, and Cisco infrastructure.</li>
-                <li>Resolved complex network issues for 500+ users.</li>
-                <li>Utilized SolarWinds for performance tuning and monitoring.</li>
-                <li>Implemented Portnox NAC and improved network security compliance.</li>
-                <li>Created EEM scripts to enhance routing stability.</li>
-            </ul>
-
-            <h3>Network Engineer</h3>
-            <p>SEFCU – Albany, NY | Jan 2022 – Aug 2022</p>
-            <ul>
-                <li>Supported daily network operations and LAN/WAN optimization.</li>
-                <li>Maintained vendor/ISP relations and infrastructure performance.</li>
-            </ul>
-
-            <h3>Cisco Network Engineer / InfoSec Analyst III</h3>
-            <p>Albany Medical Center – Albany, NY | Feb 2014 – Jan 2022</p>
-            <ul>
-                <li>Installed and configured Cisco switches, firewalls, routers, and wireless solutions.</li>
-                <li>Developed network security policies and managed LAN/WAN service providers.</li>
-                <li>Administered Cisco ISE and performed wireless surveys.</li>
-                <li>Contributed to major data center buildout; independently led Pod 2 design and deployment.</li>
-            </ul>
-        </div>
-
-        <div class="card">
-            <h2>Education</h2>
-            <ul>
-                <li>B.S. Digital Forensics – University at Albany SUNY, Albany, NY</li>
-                <li>A.A.S. CIS/Systems & Network Administration – Hudson Valley Community College, Troy, NY</li>
-                <li>Associate Degree – Petroleum Industries Production & Field Measurement, Institute of Petroleum, Iraq</li>
-            </ul>
-        </div>
-
-        <div class="card">
-            <h2>Certifications</h2>
-            <ul>
-                <li>Microsoft Certified: Azure Administrator Associate</li>
-                <li>Cisco CCNA, Enterprise Core</li>
-                <li>CCNP</li>
-            </ul>
-        </div>
-
+        <footer class="footer" id="contact">
+            <p>Ready to connect on secure network design, cloud engineering, or infrastructure automation?</p>
+            <p>Email <a href="mailto:mohalbaker@gmail.com">mohalbaker@gmail.com</a> or call <a href="tel:+15184705134">518-470-5134</a>.</p>
+        </footer>
     </div>
 </body>
 </html>
