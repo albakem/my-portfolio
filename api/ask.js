@@ -1,7 +1,23 @@
 const fs = require('fs');
 
 module.exports = async (req, res) => {
+  // Basic CORS handling: allow configured origin or allow all when not set
+  const allowedOrigin = process.env.ALLOWED_ORIGIN || '*';
+  res.setHeader('Access-Control-Allow-Origin', allowedOrigin);
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, x-function-token');
+  if (req.method === 'OPTIONS') return res.status(204).end();
+
   if (req.method !== 'POST') return res.status(405).end('Method Not Allowed');
+
+  // Optional function token to prevent public abuse. Set FUNCTION_TOKEN in environment.
+  const functionToken = process.env.FUNCTION_TOKEN;
+  if (functionToken) {
+    const header = req.headers['x-function-token'] || req.headers['x-function-token'.toLowerCase()];
+    if (!header || header !== functionToken) {
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
+  }
 
   const { question } = req.body || {};
   if (!question) return res.status(400).json({ error: 'Missing question' });
