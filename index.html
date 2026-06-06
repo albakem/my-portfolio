@@ -361,7 +361,7 @@
                 <p>Senior Network Engineer with 10+ years of experience designing, implementing, securing, and supporting enterprise network infrastructures across healthcare, government, and financial sectors. Expertise includes Cisco routing and switching, Palo Alto security, Azure cloud networking, Cisco ACI, SD-WAN, wireless infrastructure, and data center technologies. Proven success leading modernization initiatives, improving network reliability, and delivering secure, scalable solutions for mission-critical environments.</p>
                 <div class="hero-actions">
                     <a class="button" href="mailto:moh.albaker@gmail.com">Email Mohammed</a>
-                    <a class="button" href="resume.txt" download>Download Resume</a>
+                    <a class="button" href="resume.pdf" download>Download Resume</a>
                     <a class="button" href="https://www.linkedin.com/in/mohammed-albaker" target="_blank">LinkedIn Profile</a>
                 </div>
             </article>
@@ -372,7 +372,7 @@
                 <p><strong>Phone:</strong> <a href="tel:+15184705134">518-470-5134</a></p>
                 <p><strong>Email:</strong> <a href="mailto:moh.albaker@gmail.com">moh.albaker@gmail.com</a></p>
                 <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/mohammed-albaker" target="_blank">linkedin.com/in/mohammed-albaker</a></p>
-                <p><strong>Resume:</strong> <a href="resume.txt" download>Download resume</a></p>
+                <p><strong>Resume:</strong> <a href="resume.pdf" download>Download resume</a></p>
             </article>
         </section>
 
@@ -527,10 +527,10 @@
 
         <section class="card" id="chat">
                 <h2>AI Chat Assistant</h2>
-                <p>Ask a quick question about my skills, experience, or network engineering topics, and this chat assistant will give you an instant answer.</p>
+                <p>Ask a quick question from my resume, skills, or network engineering experience. Type "email me" or "text me" to generate a contact link.</p>
                 <div class="chat-window" id="chatWindow"></div>
                 <div class="chat-actions">
-                    <input id="chatInput" type="text" placeholder="Ask about Azure, Cisco, security, or my experience" />
+                    <input id="chatInput" type="text" placeholder="Ask about my resume, Cisco, Azure, or contact options" />
                     <button id="chatSend" class="button">Send</button>
                 </div>
             </section>
@@ -547,33 +547,73 @@
         const chatInput = document.getElementById('chatInput');
         const chatSend = document.getElementById('chatSend');
 
-        function addMessage(text, sender) {
+        function addMessage(text, sender, html = false) {
             const msg = document.createElement('div');
             msg.className = `chat-message ${sender}`;
-            msg.textContent = text;
+            if (html) {
+                msg.innerHTML = text;
+            } else {
+                msg.textContent = text;
+            }
             chatWindow.appendChild(msg);
             chatWindow.scrollTop = chatWindow.scrollHeight;
         }
 
         function getBotResponse(question) {
             const text = question.toLowerCase();
-            if (!text.trim()) return 'Please ask a question.';
+            if (!text.trim()) return { body: 'Please ask a question.', html: false };
+            if (text.includes('current') || text.includes('tampa') || text.includes('hospital') || text.includes('tampa general')) {
+                return 'I currently work at Tampa General Hospital supporting enterprise healthcare infrastructure across 6 hospitals and 200+ remote locations.';
+            }
             if (text.includes('azure') || text.includes('cloud')) {
-                return 'I work with Azure VNets, hybrid connectivity, and cloud network design for enterprise reliability.';
+                return 'I build and support Azure VNets, NSGs, hybrid cloud connectivity, and cloud network design for enterprise reliability.';
             }
-            if (text.includes('cisco') || text.includes('juniper') || text.includes('firewall') || text.includes('palo alto')) {
-                return 'I support Cisco switches, routers, ACI, Juniper SRX, and Palo Alto firewalls in secure production environments.';
+            if (text.includes('cisco a') || text.includes('aci') || text.includes('nexus') || text.includes('catalyst') || text.includes('routing') || text.includes('switching')) {
+                return 'I maintain Cisco routing and switching infrastructure including Catalyst 9300, Catalyst 9410, Nexus 7000, Nexus 9000, and Cisco ACI multi-pod environments.';
             }
-            if (text.includes('experience') || text.includes('work')) {
-                return 'I have 10+ years in healthcare, government, and financial sectors supporting enterprise networking.';
+            if (text.includes('palo alto') || text.includes('firewall') || text.includes('security') || text.includes('ise') || text.includes('nac')) {
+                return 'I work with Palo Alto firewalls, Cisco ISE, guest VLAN access, NAC, and I’m part of the team implementing Zscaler for remote users.';
             }
-            if (text.includes('security') || text.includes('compliance')) {
-                return 'I focus on network security best practices, NAC, firewall policy, and secure infrastructure operations.';
+            if (text.includes('wireless') || text.includes('mist') || text.includes('meraki') || text.includes('ekahau')) {
+                return 'I support wireless infrastructure with over 2,000 access points using Mist, Meraki, and Ekahau for coverage and performance.';
             }
-            if (text.includes('resume') || text.includes('profile')) {
-                return 'I’m available for roles that need strong network architecture, hybrid cloud, and resilient data center engineering.';
+            if (text.includes('infoblox') || text.includes('dhcp') || text.includes('ipam')) {
+                return 'I administer Infoblox DNS/DHCP, IP address management, and DHCP scope reservations for enterprise networks.';
             }
-            return 'That is a great question. I can help with network, cloud, and security topics or you can contact me directly via email.';
+            if (text.includes('sd-wan') || text.includes('velocloud')) {
+                return 'I support VeloCloud SD-WAN connectivity for remote hospitals, clinics, and branch locations.';
+            }
+            if (text.includes('ansible') || text.includes('automation') || text.includes('terraform') || text.includes('copilot')) {
+                return 'I use Ansible to automate daily network tasks and I’m learning Terraform with Visual Studio Code and GitHub Copilot.';
+            }
+            if (text.includes('resume') || text.includes('download') || text.includes('pdf')) {
+                return 'You can download my resume directly from the page to review my full experience, skills, and certifications.';
+            }
+            if (text.includes('experience') || text.includes('years') || text.includes('background')) {
+                return 'I have 10+ years of experience in healthcare, government, and financial sectors supporting enterprise networks and infrastructure.';
+            }
+            if (text.includes('email') || text.includes('send email') || text.includes('email me') || text.includes('contact me')) {
+                return {
+                    body: 'Click to compose an email: <a href="mailto:moh.albaker@gmail.com?subject=Resume%20Inquiry&body=Hello%20Mohammed%2C%0A%0AI%20would%20like%20to%20discuss...">Email Mohammed</a>',
+                    html: true,
+                };
+            }
+            if (text.includes('text') || text.includes('sms') || text.includes('message me') || text.includes('text me')) {
+                return {
+                    body: 'Click to send a text message: <a href="sms:+15184705134">Text Mohammed</a>',
+                    html: true,
+                };
+            }
+            if (text.includes('education') || text.includes('certification') || text.includes('certifications')) {
+                return {
+                    body: 'I hold a B.S. in Digital Forensics from University at Albany (SUNY) and certifications like Cisco CCNA, ENCOR, and Azure Administrator Associate.',
+                    html: false,
+                };
+            }
+            return {
+                body: 'That is a great question. I can answer from my resume and work experience, or you can contact me directly via email for more details.',
+                html: false,
+            };
         }
 
         function handleSend() {
@@ -582,7 +622,7 @@
             addMessage(text, 'user');
             chatInput.value = '';
             const response = getBotResponse(text);
-            setTimeout(() => addMessage(response, 'bot'), 250);
+            setTimeout(() => addMessage(response.body, 'bot', response.html), 250);
         }
 
         chatSend.addEventListener('click', handleSend);
@@ -590,7 +630,7 @@
             if (event.key === 'Enter') handleSend();
         });
 
-        addMessage('Hello! Ask me about my skills, projects, or network experience.', 'bot');
+        addMessage('Hello! Ask me about details from my resume, network skills, or recent engineering experience.', 'bot');
     </script>
 </body>
 </html>
