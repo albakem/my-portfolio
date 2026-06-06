@@ -561,59 +561,55 @@
 
         function getBotResponse(question) {
             const text = question.toLowerCase();
-            if (!text.trim()) return { body: 'Please ask a question.', html: false };
-            if (text.includes('current') || text.includes('tampa') || text.includes('hospital') || text.includes('tampa general')) {
-                return 'I currently work at Tampa General Hospital supporting enterprise healthcare infrastructure across 6 hospitals and 200+ remote locations.';
+            if (!text.trim()) {
+                return { body: 'Please ask a question.', html: false };
             }
-            if (text.includes('azure') || text.includes('cloud')) {
-                return 'I build and support Azure VNets, NSGs, hybrid cloud connectivity, and cloud network design for enterprise reliability.';
+            if (text.includes('current') || text.includes('tampa') || text.includes('hospital') || text.includes('tampa general') || text.includes('where do you work')) {
+                return { body: 'I currently work at Tampa General Hospital supporting enterprise healthcare infrastructure across 6 hospitals and 200+ remote locations.', html: false };
             }
-            if (text.includes('cisco a') || text.includes('aci') || text.includes('nexus') || text.includes('catalyst') || text.includes('routing') || text.includes('switching')) {
-                return 'I maintain Cisco routing and switching infrastructure including Catalyst 9300, Catalyst 9410, Nexus 7000, Nexus 9000, and Cisco ACI multi-pod environments.';
+            if (text.includes('azure') || text.includes('cloud') || text.includes('vnets') || text.includes('hybrid')) {
+                return { body: 'I build and support Azure VNets, NSGs, hybrid cloud connectivity, and cloud network design for enterprise reliability.', html: false };
+            }
+            if (text.includes('cisco a') || text.includes('aci') || text.includes('nexus') || text.includes('catalyst') || text.includes('routing') || text.includes('switching') || text.includes('cisco')) {
+                return { body: 'I maintain Cisco routing and switching infrastructure including Catalyst 9300, Catalyst 9410, Nexus 7000, Nexus 9000, and Cisco ACI multi-pod environments.', html: false };
             }
             if (text.includes('palo alto') || text.includes('firewall') || text.includes('security') || text.includes('ise') || text.includes('nac')) {
-                return 'I work with Palo Alto firewalls, Cisco ISE, guest VLAN access, NAC, and I’m part of the team implementing Zscaler for remote users.';
+                return { body: 'I work with Palo Alto firewalls, Cisco ISE, guest VLAN access, NAC, and I’m part of the team implementing Zscaler for remote users.', html: false };
             }
             if (text.includes('wireless') || text.includes('mist') || text.includes('meraki') || text.includes('ekahau')) {
-                return 'I support wireless infrastructure with over 2,000 access points using Mist, Meraki, and Ekahau for coverage and performance.';
+                return { body: 'I support wireless infrastructure with over 2,000 access points using Mist, Meraki, and Ekahau for coverage and performance.', html: false };
             }
             if (text.includes('infoblox') || text.includes('dhcp') || text.includes('ipam')) {
-                return 'I administer Infoblox DNS/DHCP, IP address management, and DHCP scope reservations for enterprise networks.';
+                return { body: 'I administer Infoblox DNS/DHCP, IP address management, and DHCP scope reservations for enterprise networks.', html: false };
             }
-            if (text.includes('sd-wan') || text.includes('velocloud')) {
-                return 'I support VeloCloud SD-WAN connectivity for remote hospitals, clinics, and branch locations.';
+            if (text.includes('sd-wan') || text.includes('velocloud') || text.includes('sd wan')) {
+                return { body: 'I support VeloCloud SD-WAN connectivity for remote hospitals, clinics, and branch locations.', html: false };
             }
             if (text.includes('ansible') || text.includes('automation') || text.includes('terraform') || text.includes('copilot')) {
-                return 'I use Ansible to automate daily network tasks and I’m learning Terraform with Visual Studio Code and GitHub Copilot.';
+                return { body: 'I use Ansible to automate daily network tasks and I’m learning Terraform with Visual Studio Code and GitHub Copilot.', html: false };
             }
             if (text.includes('resume') || text.includes('download') || text.includes('pdf')) {
-                return 'You can download my resume directly from the page to review my full experience, skills, and certifications.';
+                return { body: 'You can download my resume directly from the page to review my full experience, skills, and certifications.', html: false };
             }
-            if (text.includes('experience') || text.includes('years') || text.includes('background')) {
-                return 'I have 10+ years of experience in healthcare, government, and financial sectors supporting enterprise networks and infrastructure.';
+            if (text.includes('experience') || text.includes('years') || text.includes('background') || text.includes('work history')) {
+                return { body: 'I have 10+ years of experience in healthcare, government, and financial sectors supporting enterprise networks and infrastructure.', html: false };
             }
-            if (text.includes('email') || text.includes('send email') || text.includes('email me') || text.includes('contact me')) {
+            if (text.includes('email') || text.includes('send email') || text.includes('email me') || text.includes('contact me') || text.includes('mailto')) {
                 return {
                     body: 'Click to compose an email: <a href="mailto:moh.albaker@gmail.com?subject=Resume%20Inquiry&body=Hello%20Mohammed%2C%0A%0AI%20would%20like%20to%20discuss...">Email Mohammed</a>',
                     html: true,
                 };
             }
-            if (text.includes('text') || text.includes('sms') || text.includes('message me') || text.includes('text me')) {
+            if (text.includes('text') || text.includes('sms') || text.includes('message me') || text.includes('text me') || text.includes('phone me')) {
                 return {
                     body: 'Click to send a text message: <a href="sms:+15184705134">Text Mohammed</a>',
                     html: true,
                 };
             }
-            if (text.includes('education') || text.includes('certification') || text.includes('certifications')) {
-                return {
-                    body: 'I hold a B.S. in Digital Forensics from University at Albany (SUNY) and certifications like Cisco CCNA, ENCOR, and Azure Administrator Associate.',
-                    html: false,
-                };
+            if (text.includes('education') || text.includes('study') || text.includes('degree') || text.includes('certification') || text.includes('certifications')) {
+                return { body: 'I hold a B.S. in Digital Forensics from University at Albany (SUNY) and certifications like Cisco CCNA, ENCOR, and Azure Administrator Associate.', html: false };
             }
-            return {
-                body: 'That is a great question. I can answer from my resume and work experience, or you can contact me directly via email for more details.',
-                html: false,
-            };
+            return { body: 'I can answer questions based on my resume, technical skills, and experience. Try asking about Cisco, Azure, networking, security, or contact options.', html: false };
         }
 
         function handleSend() {
@@ -622,7 +618,10 @@
             addMessage(text, 'user');
             chatInput.value = '';
             const response = getBotResponse(text);
-            setTimeout(() => addMessage(response.body, 'bot', response.html), 250);
+            setTimeout(() => {
+                addMessage(response.body, 'bot', response.html);
+                chatInput.focus();
+            }, 250);
         }
 
         chatSend.addEventListener('click', handleSend);
