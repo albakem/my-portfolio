@@ -615,17 +615,51 @@
             return { body: 'I can answer questions based on my resume, technical skills, and experience. Try asking about Cisco, Azure, networking, security, or contact options.', html: false };
         }
 
-        function handleSend() {
+        async function handleSend() {
             const text = chatInput.value.trim();
             if (!text) return;
             addMessage(text, 'user');
             chatInput.value = '';
-            const response = getBotResponse(text);
-            setTimeout(() => {
-                addMessage(response.body, 'bot', response.html);
-                // focus input without forcing the page to scroll
-                try { chatInput.focus({ preventScroll: true }); } catch (e) { chatInput.focus(); }
-            }, 250);
+
+            // show a temporary thinking message
+            const thinking = 'Thinking...';
+            addMessage(thinking, 'bot');
+
+            // try serverless endpoint first
+            try {
+                const r = await fetch('/api/ask', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ question: text }),
+                });
+
+                // remove the thinking message (last bot message)
+                const msgs = chatWindow.getElementsByClassName('chat-message');
+                if (msgs.length) {
+                    const last = msgs[msgs.length - 1];
+                    if (last.classList.contains('bot') && last.textContent === thinking) last.remove();
+                }
+
+                if (!r.ok) throw new Error('Server function not available');
+
+                const data = await r.json();
+                const body = data.answer || 'Sorry, no answer.';
+                const html = !!data.html;
+                addMessage(body, 'bot', html);
+            } catch (err) {
+                // fallback to local rule-based assistant
+                const fallback = getBotResponse(text);
+                // remove thinking message
+                const msgs = chatWindow.getElementsByClassName('chat-message');
+                if (msgs.length) {
+                    const last = msgs[msgs.length - 1];
+                    if (last.classList.contains('bot') && last.textContent === thinking) last.remove();
+                }
+                addMessage(fallback.body, 'bot', fallback.html);
+            }
+
+            // focus input without forcing the page to scroll
+            try { chatInput.focus({ preventScroll: true }); } catch (e) { chatInput.focus(); }
         }
 
         chatSend.addEventListener('click', handleSend);

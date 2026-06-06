@@ -1,0 +1,23 @@
+Mohammed Albaker — Senior Network Engineer
+
+Location: Tampa, Florida, 33606, United States
+Phone: 518-470-5134
+Email: moh.albaker@gmail.com
+
+Summary:
+Senior Network Engineer with 10+ years of experience designing, implementing, securing, and supporting enterprise network infrastructures across healthcare, government, and financial sectors. Expertise includes Cisco routing and switching, Palo Alto security, Azure cloud networking, Cisco ACI, SD-WAN, wireless infrastructure, and data center technologies.
+
+Experience highlights:
+- Tampa General Hospital – Senior Network Engineer (Jul 2024 – Present). Support enterprise healthcare infrastructure across 6 hospitals and 200+ remote locations. Maintain Cisco routing and switching (Catalyst 9300, 9410, Nexus 7000/9000), support 2,000+ wireless APs, EIGRP/BGP, Cisco ISE, Cisco DNA Center, Ansible automation, Infoblox DHCP/IPAM, Azure VNets, Meraki SD-WAN, Zscaler migration, and monitoring with PRTG/LogicMonitor.
+- Empire State Development – Network Engineer (May 2023 – Jul 2024). Juniper switching, SRX firewalls, Mist wireless, VeloCloud SD-WAN, VMware Horizon, Infoblox DHCP/IPAM.
+- Broadview Federal Credit Union – Network Security Engineer (Aug 2022 – May 2023). OSPF environment across 60+ branches, Meraki, Cisco ISE, EEM scripts, AWS connectivity.
+- Albany Medical Center – InfoSec Analyst III (Jan 2014 – Jan 2022). Cisco Catalyst/Nexus, vPC, Cisco ISE, Splunk, Infoblox DHCP/IPAM, wireless, PowerShell scripts for monitoring.
+
+Skills & Tools:
+Cisco (Catalyst, Nexus, ACI), Palo Alto, Cisco ISE, Zscaler, Mist, Meraki, Ekahau, Infoblox, VeloCloud SD-WAN, Ansible, Terraform (learning), Azure, AWS connectivity, VMware Horizon, SolarWinds, PRTG, LogicMonitor, Splunk, Rubrik.
+
+Education & Certifications:
+B.S. Digital Forensics, University at Albany (SUNY).
+Certifications: Cisco CCNA, Cisco Enterprise Core (ENCOR), Microsoft Certified: Azure Administrator Associate.
+
+Contact: moh.albaker@gmail.com — tel:+15184705134
