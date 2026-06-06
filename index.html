@@ -529,6 +529,7 @@
                 <h2>AI Chat Assistant</h2>
                 <p>Ask a quick question from my resume, skills, or network engineering experience. Type "email me" or "text me" to generate a contact link.</p>
                 <div class="chat-window" id="chatWindow"></div>
+                <p id="chatStatus" style="font-size:0.85rem; color:var(--muted); margin-top: 12px;">Note: GitHub Pages cannot host serverless functions. This chat will use the local resume-based assistant.</p>
                 <div class="chat-actions">
                     <input id="chatInput" type="text" placeholder="Ask about my resume, Cisco, Azure, or contact options" />
                     <button id="chatSend" class="button">Send</button>
@@ -546,6 +547,13 @@
         const chatWindow = document.getElementById('chatWindow');
         const chatInput = document.getElementById('chatInput');
         const chatSend = document.getElementById('chatSend');
+        const chatStatus = document.getElementById('chatStatus');
+
+        function setChatStatus(text, isError = false) {
+            if (!chatStatus) return;
+            chatStatus.textContent = text;
+            chatStatus.style.color = isError ? '#f87171' : 'var(--muted)';
+        }
 
         function addMessage(text, sender, html = false) {
             const msg = document.createElement('div');
@@ -625,37 +633,48 @@
             const thinking = 'Thinking...';
             addMessage(thinking, 'bot');
 
-            // try serverless endpoint first
-            try {
-                const r = await fetch('/api/ask', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ question: text }),
-                });
-
-                // remove the thinking message (last bot message)
-                const msgs = chatWindow.getElementsByClassName('chat-message');
-                if (msgs.length) {
-                    const last = msgs[msgs.length - 1];
-                    if (last.classList.contains('bot') && last.textContent === thinking) last.remove();
-                }
-
-                if (!r.ok) throw new Error('Server function not available');
-
-                const data = await r.json();
-                const body = data.answer || 'Sorry, no answer.';
-                const html = !!data.html;
-                addMessage(body, 'bot', html);
-            } catch (err) {
-                // fallback to local rule-based assistant
+            const usingGitHubPages = window.location.hostname.includes('github.io');
+            if (usingGitHubPages) {
+                setChatStatus('Running on GitHub Pages. Using local resume-based fallback only.');
                 const fallback = getBotResponse(text);
-                // remove thinking message
                 const msgs = chatWindow.getElementsByClassName('chat-message');
                 if (msgs.length) {
                     const last = msgs[msgs.length - 1];
                     if (last.classList.contains('bot') && last.textContent === thinking) last.remove();
                 }
                 addMessage(fallback.body, 'bot', fallback.html);
+            } else {
+                setChatStatus('Checking serverless AI endpoint...');
+                try {
+                    const r = await fetch('/api/ask', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ question: text }),
+                    });
+
+                    const msgs = chatWindow.getElementsByClassName('chat-message');
+                    if (msgs.length) {
+                        const last = msgs[msgs.length - 1];
+                        if (last.classList.contains('bot') && last.textContent === thinking) last.remove();
+                    }
+
+                    if (!r.ok) throw new Error('Server function not available');
+
+                    const data = await r.json();
+                    const body = data.answer || 'Sorry, no answer.';
+                    const html = !!data.html;
+                    addMessage(body, 'bot', html);
+                    setChatStatus('Serverless AI available.');
+                } catch (err) {
+                    setChatStatus('Serverless AI endpoint unavailable. Using local resume fallback.', true);
+                    const fallback = getBotResponse(text);
+                    const msgs = chatWindow.getElementsByClassName('chat-message');
+                    if (msgs.length) {
+                        const last = msgs[msgs.length - 1];
+                        if (last.classList.contains('bot') && last.textContent === thinking) last.remove();
+                    }
+                    addMessage(fallback.body, 'bot', fallback.html);
+                }
             }
 
             // focus input without forcing the page to scroll
