@@ -235,13 +235,14 @@
         }
 
         .chat-window {
-            min-height: 220px;
+            min-height: 180px;
             background: rgba(15, 23, 42, 0.82);
             border: 1px solid rgba(56, 189, 248, 0.15);
             border-radius: 18px;
             padding: 18px;
             overflow-y: auto;
-            max-height: 340px;
+            max-height: calc(100vh - 240px);
+            flex: 1 1 auto;
         }
 
         #chat {
@@ -249,9 +250,37 @@
             right: 20px;
             bottom: 20px;
             width: 320px;
-            max-height: 520px;
+            max-height: calc(100vh - 40px);
             z-index: 999;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            overflow: hidden;
+        }
+
+        #chatStatus {
+            margin: 0 0 6px;
+            font-size: 0.85rem;
+            color: var(--muted);
+            line-height: 1.4;
+        }
+
+        .chat-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 0;
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 680px) {
+            #chat {
+                width: min(92vw, 95vw);
+                left: 4%;
+                right: 4%;
+                bottom: 10px;
+                max-height: calc(100vh - 20px);
+            }
         }
 
         #chat h2 {
@@ -529,7 +558,7 @@
                 <h2>AI Chat Assistant</h2>
                 <p>Ask a quick question from my resume, skills, or network engineering experience. Type "email me" or "text me" to generate a contact link.</p>
                 <div class="chat-window" id="chatWindow"></div>
-                <p id="chatStatus" style="font-size:0.85rem; color:var(--muted); margin-top: 12px;">Note: GitHub Pages cannot host serverless functions. This chat will use the local resume-based assistant.</p>
+                <p id="chatStatus">Note: GitHub Pages cannot host serverless functions. This chat will use the local resume-based assistant.</p>
                 <div class="chat-actions">
                     <input id="chatInput" type="text" placeholder="Ask about my resume, Cisco, Azure, or contact options" />
                     <button id="chatSend" class="button">Send</button>
