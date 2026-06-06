@@ -556,7 +556,10 @@
                 msg.textContent = text;
             }
             chatWindow.appendChild(msg);
-            chatWindow.scrollTop = chatWindow.scrollHeight;
+            // ensure internal scrolling happens after layout update
+            requestAnimationFrame(() => {
+                chatWindow.scrollTop = chatWindow.scrollHeight;
+            });
         }
 
         function getBotResponse(question) {
@@ -620,7 +623,8 @@
             const response = getBotResponse(text);
             setTimeout(() => {
                 addMessage(response.body, 'bot', response.html);
-                chatInput.focus();
+                // focus input without forcing the page to scroll
+                try { chatInput.focus({ preventScroll: true }); } catch (e) { chatInput.focus(); }
             }, 250);
         }
 
