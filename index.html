@@ -241,7 +241,7 @@
             border-radius: 18px;
             padding: 18px;
             overflow-y: auto;
-            max-height: 280px;
+            max-height: 240px;
             flex: 1 1 auto;
         }
 
@@ -249,15 +249,56 @@
             position: fixed;
             right: 20px;
             bottom: 20px;
-            width: 320px;
-            max-height: 460px;
-            min-height: 320px;
+            width: 60px;
+            max-height: 60px;
+            min-height: 60px;
             z-index: 999;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
             display: flex;
             flex-direction: column;
             gap: 12px;
             overflow: hidden;
+            transition: width 180ms ease, max-height 180ms ease, min-height 180ms ease;
+        }
+
+        #chat.open {
+            width: 320px;
+            max-height: 460px;
+            min-height: 320px;
+        }
+
+        #chatToggle {
+            width: 60px;
+            height: 60px;
+            border: none;
+            border-radius: 999px;
+            background: rgba(56, 189, 248, 0.9);
+            color: #07111c;
+            cursor: pointer;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+        }
+
+        #chatBody {
+            display: none;
+            flex: 1 1 auto;
+            background: rgba(15, 23, 42, 0.94);
+            border-radius: var(--radius);
+            padding: 18px;
+            overflow: hidden;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        #chat.open #chatBody {
+            display: flex;
+        }
+
+        #chat.open #chatStatus {
+            display: block;
         }
 
         #chatStatus {
@@ -265,6 +306,7 @@
             font-size: 0.85rem;
             color: var(--muted);
             line-height: 1.4;
+            display: none;
         }
 
         .chat-actions {
@@ -276,12 +318,19 @@
 
         @media (max-width: 680px) {
             #chat {
-                width: min(92vw, 95vw);
-                left: 4%;
-                right: 4%;
+                width: 60px;
+                left: auto;
+                right: 10px;
                 bottom: 10px;
+                max-height: 60px;
+                min-height: 60px;
+            }
+
+            #chat.open {
+                width: min(92vw, 95vw);
                 max-height: calc(80vh);
                 min-height: 320px;
+                right: 4%;
             }
         }
 
@@ -557,13 +606,16 @@
         </div>
 
         <section class="card" id="chat">
-                <h2>AI Chat Assistant</h2>
-                <p>Ask a quick question from my resume, skills, or network engineering experience. Type "email me" or "text me" to generate a contact link.</p>
-                <div class="chat-window" id="chatWindow"></div>
-                <p id="chatStatus">Note: GitHub Pages cannot host serverless functions. This chat will use the local resume-based assistant.</p>
-                <div class="chat-actions">
-                    <input id="chatInput" type="text" placeholder="Ask about my resume, Cisco, Azure, or contact options" />
-                    <button id="chatSend" class="button">Send</button>
+                <button id="chatToggle" aria-label="Open chat">Chat</button>
+                <div id="chatBody">
+                    <h2>AI Chat Assistant</h2>
+                    <p>Ask a quick question from my resume, skills, or network engineering experience. Type "email me" or "text me" to generate a contact link.</p>
+                    <div class="chat-window" id="chatWindow"></div>
+                    <p id="chatStatus">Note: GitHub Pages cannot host serverless functions. This chat will use the local resume-based assistant.</p>
+                    <div class="chat-actions">
+                        <input id="chatInput" type="text" placeholder="Ask about my resume, Cisco, Azure, or contact options" />
+                        <button id="chatSend" class="button">Send</button>
+                    </div>
                 </div>
             </section>
         </div>
@@ -579,6 +631,8 @@
         const chatInput = document.getElementById('chatInput');
         const chatSend = document.getElementById('chatSend');
         const chatStatus = document.getElementById('chatStatus');
+        const chatToggle = document.getElementById('chatToggle');
+        const chatSection = document.getElementById('chat');
 
         function setChatStatus(text, isError = false) {
             if (!chatStatus) return;
@@ -712,6 +766,15 @@
             try { chatInput.focus({ preventScroll: true }); } catch (e) { chatInput.focus(); }
         }
 
+        function toggleChat() {
+            const isOpen = chatSection.classList.toggle('open');
+            chatToggle.textContent = isOpen ? 'Close' : 'Chat';
+            if (isOpen) {
+                chatInput.focus({ preventScroll: true });
+            }
+        }
+
+        chatToggle.addEventListener('click', toggleChat);
         chatSend.addEventListener('click', handleSend);
         chatInput.addEventListener('keydown', event => {
             if (event.key === 'Enter') handleSend();
