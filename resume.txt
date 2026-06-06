@@ -1,0 +1,88 @@
+Mohammed Albaker, Senior Network Engineer
+Tampa, Florida, 33606, United States
+5184705134
+moh.albaker@gmail.com
+
+LINKS
+linkedin, Portfolio
+
+PROFILE
+Senior Network Engineer with 10+ years of experience designing, implementing, securing, and supporting enterprise network infrastructures across healthcare, government, and financial sectors. Expertise includes Cisco routing and switching, Palo Alto security, Azure cloud networking, Cisco ACI, SD-WAN, wireless infrastructure, and data center technologies. Proven success leading modernization initiatives, improving network reliability, and delivering secure, scalable solutions for mission-critical environments.
+
+TECHNICAL SKILLS
+Cisco Routing & Switching    OSPF    EIGRP    BGP    Cisco ACI    Palo Alto Firewalls    Cisco ISE    Azure    AWS Connectivity    VeloCloud SD-WAN    Infoblox DNS/DHCP    Cisco Meraki    Mist Wireless    Ekahau    VMware Horizon    SolarWinds    LogicMonitor    PRTG    Splunk    Zscaler    Rubrik    DMVPN
+
+EMPLOYMENT HISTORY
+Jul 2024 — Present    Senior Network Engineer, Tampa General Hospital    Tampa
+· Support enterprise healthcare infrastructure serving 6 hospitals and more than 200 remote locations.
+· Maintain Cisco routing and switching infrastructure including Catalyst 9300 switches and Catalyst 9410 chassis switches and Cisco Nexus 7000 core switches and Nexus 9000.
+· Support over 2,000 wireless access points (9120 & 3802) across hospitals, clinics, and remote sites.
+· Maintain EIGRP as the primary internal routing protocol and support BGP connectivity where required.
+· Administer Cisco ISE for wired authentication using certificates for domain-joined devices and guest VLAN assignments for non-compliant devices.
+· Use Catalyst Center (DNAC) to deploy templates, perform upgrades, standardize configurations, and support maintenance windows.
+· Perform wireless access point refresh projects including map updates, configuration migration, and deployment support.
+· Support Cisco ACI multi-pod environments and troubleshoot underlay connectivity between ISN routers, spine switches, and border leaf switches.
+· Support NetScaler load balancers, VIPs, and application gateway services.
+· Build and support Azure VNets, NSGs, and hybrid-cloud connectivity.
+· Administer Infoblox services including DHCP scopes, reservations, and IP address management.
+· Use PRTG and LogicMonitor for monitoring, alerting, and troubleshooting.
+· Create and maintain Visio diagrams and documentation for remote sites, primary data centers, DR data centers, and ACI environments.
+· Support Meraki SD-WAN connectivity for remote hospitals and clinics.
+· Use Ansible to automate daily network tasks, gather information from devices, back up configurations, and push configuration changes when needed.
+· Build and test Ansible playbooks to reduce manual work and make network changes more consistent across the environment.
+· Currently learning Terraform and automation tools through Visual Studio Code and GitHub Copilot to help automate troubleshooting, cloud deployments, and configuration management.
+· Part of the team implementing Zscaler for remote users as we transition away from GlobalProtect.
+
+May 2023 — Jul 2024    Network Engineer, Empire State Development    Albany
+· Supported enterprise network infrastructure for a New York State government agency supporting multiple office locations.
+· Maintained and upgraded Juniper switching infrastructure and SRX firewalls.
+· Administered Mist Wireless environments including SSID creation, wireless troubleshooting, and access point deployments.
+· Used Mist AI for wireless monitoring, troubleshooting, and performance analysis.
+· Deployed and supported VeloCloud SD-WAN solutions across more than 20 remote locations.
+· Supported VMware Horizon VDI infrastructure.
+· Participated in the deployment of a new data center using Juniper switching infrastructure.
+· Implemented Infoblox and migrated DHCP services to the Infoblox platform.
+· Maintained Infoblox IPAM and DHCP services.
+· Worked with APC and Vertiv infrastructure supporting data center operations.
+· Performed upgrades, maintenance activities, outage response, and troubleshooting.
+· Created Visio diagrams and network documentation.
+
+Aug 2022 — May 2023    Network Security Engineer, Broadview Federal Credit Union
+· Supported a large enterprise OSPF environment connecting more than 60 branch locations to the primary data center and DR data center.
+· Maintained routing, switching, and WAN circuits across branch locations and data center environments.
+· Performed switch upgrades, software updates, troubleshooting, and network maintenance activities.
+· Supported Meraki wireless infrastructure for branch offices and corporate locations.
+· Used SolarWinds and Cisco Prime to monitor network performance, track device health, manage wireless infrastructure, and troubleshoot issues.
+· Supported Cisco ISE and participated in the migration from Cisco ISE to Portnox NAC.
+· Built Cisco EEM scripts to automatically reset AWS VPN tunnels when sessions became stuck, reducing overnight outages and support calls.
+· Maintained AWS connectivity between on-premises infrastructure and cloud resources.
+· Troubleshot routing, switching, wireless, NAC, and cloud connectivity issues.
+· Created Visio diagrams, implementation documentation, and operational procedures.
+
+Jan 2014 — Jan 2022    InfoSec Analyst III, Albany Medical Center
+· Supported day-to-day network operations for hospitals, clinics, and administrative locations.
+· Worked network tickets and escalation issues from Level 1 to 3 Level support teams through resolution.
+· Installed, configured, replaced, and upgraded Cisco Catalyst 3750, 3850, and 9300 switches.
+· Troubleshot routing, switching, wireless, and connectivity issues.
+· Created and maintained VLANs and supported network segmentation projects.
+· Participated in the migration to Cisco Nexus 7000 core switches and Nexus 9000 aggregation switches.
+· Worked on the deployment of a new data center environment including the buildout of Pod 2.
+· Configured and supported vPC connectivity between Nexus aggregation and core switching infrastructure.
+· Supported Cisco ISE for wired and wireless authentication, including MAC-based authentication for non-domain devices.
+· Installed, replaced, and troubleshot wireless access points and wireless controllers.
+· Built and maintained Cisco ASA VPN tunnels for remote connectivity.
+· Used Cisco Prime for wireless management, reporting, access point monitoring, and administration.
+· Used SolarWinds for monitoring, reporting, and troubleshooting network infrastructure.
+· Deployed and supported Splunk clustered environments for centralized logging and monitoring.
+· Administered Infoblox DHCP and IP address management services.
+· Created Visio diagrams, implementation procedures, and support documentation.
+· Worked with server, telecom, security, and vendor teams during upgrades and maintenance activities.
+· Built PowerShell scripts to monitor switches, routers, and network devices while SolarWinds was offline, helping maintain visibility across the environment until monitoring services were restored.
+
+EDUCATION
+B.S. Digital Forensics, University at Albany (SUNY), Albany, NY
+
+CERTIFICATIONS
+Cisco CCNA
+Cisco Enterprise Core (ENCOR)
+Microsoft Certified: Azure Administrator Associate
