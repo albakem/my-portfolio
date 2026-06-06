@@ -45,7 +45,12 @@ GitHub Actions automatic deploy (optional)
 	- `VERCEL_TOKEN` — your Vercel personal token
 	- `VERCEL_ORG_ID` — your Vercel organization ID
 	- `VERCEL_PROJECT_ID` — your Vercel project ID
+	- `OPENAI_API_KEY` — required if you want the workflow to run a post-deploy sanity check
 
 2. The repository contains a workflow `.github/workflows/deploy-vercel.yml` that will automatically deploy the `main` branch to Vercel when pushed.
+
+Post-deploy test
+
+If `OPENAI_API_KEY` is present in repository Secrets the workflow will attempt a quick sanity-check after deploy: it fetches the latest deployment URL from the Vercel API and POSTs a sample question to `/api/ask` (using `FUNCTION_TOKEN` if set). The test fails the workflow if the endpoint doesn't return HTTP 200.
 
 Notes: you can still use Vercel's built-in GitHub integration instead of this Action; both will deploy on push.

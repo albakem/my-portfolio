@@ -18,3 +18,30 @@ jobs:
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
           working-directory: .
           prod: true
+
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Get latest Vercel deployment URL
+        id: get_deploy
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: |
+          echo "Fetching deployments for project $VERCEL_PROJECT_ID"
+          resp=$(curl -s -H "Authorization: Bearer $VERCEL_TOKEN" "https://api.vercel.com/v6/deployments?projectId=$VERCEL_PROJECT_ID")
+          url=$(echo "$resp" | jq -r '.deployments[0].url')
+          echo "deployment_url=$url" >> $GITHUB_OUTPUT
+
+      - name: Sanity-check /api/ask on deployment
+        if: ${{ secrets.OPENAI_API_KEY != '' }}
+        env:
+          DEPLOY_URL: ${{ steps.get_deploy.outputs.deployment_url }}
+          FUNCTION_TOKEN: ${{ secrets.FUNCTION_TOKEN }}
+        run: |
+          if [ -z "$DEPLOY_URL" ] || [ "$DEPLOY_URL" = "null" ]; then echo "No deployment URL found"; exit 1; fi
+          echo "Testing https://$DEPLOY_URL/api/ask"
+          status=$(curl -s -o /tmp/resp -w "%{http_code}" -X POST "https://$DEPLOY_URL/api/ask" -H "Content-Type: application/json" -H "x-function-token: $FUNCTION_TOKEN" -d '{"question":"Do you work at Tampa General Hospital?"}')
+          echo "HTTP $status"
+          cat /tmp/resp
+          if [ "$status" != "200" ]; then exit 1; fi
