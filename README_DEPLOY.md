@@ -38,3 +38,14 @@ Security recommendations:
 - Never commit `OPENAI_API_KEY` or tokens to the repo.
 - Use a restrictive `ALLOWED_ORIGIN` for production.
 - Consider adding rate-limiting or a small CAPTCHA if public.
+
+GitHub Actions automatic deploy (optional)
+
+1. Add these repository secrets in GitHub (Settings → Secrets → Actions):
+	- `VERCEL_TOKEN` — your Vercel personal token
+	- `VERCEL_ORG_ID` — your Vercel organization ID
+	- `VERCEL_PROJECT_ID` — your Vercel project ID
+
+2. The repository contains a workflow `.github/workflows/deploy-vercel.yml` that will automatically deploy the `main` branch to Vercel when pushed.
+
+Notes: you can still use Vercel's built-in GitHub integration instead of this Action; both will deploy on push.
